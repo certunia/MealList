@@ -1,59 +1,65 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { SafeAreaInsetsContext, SafeAreaView } from 'react-native-safe-area-context';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { PaperProvider, Button } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { createStackNavigator } from '@react-navigation/stack'
+import { NavigationContainer } from '@react-navigation/native'
+import { PaperProvider, Button, MD3DarkTheme, MD3LightTheme } from 'react-native-paper';
+import { useMaterial3Theme } from '@pchmn/expo-material3-theme';
+import { useColorScheme } from 'react-native';
 import * as React from 'react';
-import { View, Text } from 'react-native';
 
 // import App from './RootNavigator';
 
-const Drawer = createDrawerNavigator();
+const Root = createStackNavigator()
 
 function Home({ navigation }) {
+    const colorScheme = useColorScheme();
+    const { theme } = useMaterial3Theme();
+
+    const paperTheme =
+        colorScheme === 'dark'
+            ? { ...MD3DarkTheme, colors: theme.dark }
+            : { ...MD3LightTheme, colors: theme.light };
+
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Button onPress={() => console.log('Pressed')}>БАТОООН!</Button>
-        </View>
+        <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: paperTheme.colors.primary }}>
+            <Button onPress={() => {console.log(theme); navigation.navigate('DetailsScreen')}}>БАТОООН!</Button>
+        </SafeAreaView>
     );
 }
 
-function DetailsScreen() {
+function DetailsScreen({ navigation }) {
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Details Screen</Text>
-        </View>
+        <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Button onPress={() => {console.log('Pressed'); navigation.navigate('DetailsScreen2')}}>БАТОООН2!</Button>
+        </SafeAreaView>
+    );
+}
+
+function DetailsScreen2({ navigation }) {
+    return (
+        <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Button onPress={() => {console.log('Pressed'); navigation.navigate('Home')}}>БАТОООН!</Button>
+        </SafeAreaView>
     );
 }
 
 export default function App() {
-    const [collapsed, setCollapsed] = React.useState(false);
+    const colorScheme = useColorScheme();
+    const { theme } = useMaterial3Theme();
+    console.log(theme)
+
+    const paperTheme =
+        colorScheme === 'dark'
+            ? { ...MD3DarkTheme, colors: theme.dark }
+            : { ...MD3LightTheme, colors: theme.light };
 
     return (
-        <PaperProvider>
+        <PaperProvider theme={paperTheme}>
             <NavigationContainer>
-                <SafeAreaInsetsContext.Consumer>
-                    {(insets) => {
-                        const { left, right } = insets || { left: 0, right: 0 };
-                        const collapsedDrawerWidth = 80 + Math.max(left, right);
-                        return (
-                            <Drawer.Navigator
-                                useLegacyImplementation={true}
-                                screenOptions={{
-                                    drawerStyle: collapsed && {
-                                        width: collapsedDrawerWidth,
-                                    },
-                                }}
-                                drawerContent={() => <Button>БАТОООН!</Button>}
-                            >
-                                <Drawer.Screen
-                                    name="Home"
-                                    component={Home}
-                                    options={{ headerShown: false }}
-                                />
-                            </Drawer.Navigator>
-                        );
-                    }}
-                </SafeAreaInsetsContext.Consumer>
+                <Root.Navigator>
+                    <Root.Screen screenOptions={{ headerShown: false }} name="Home" component={Home} />
+                    <Root.Screen headerShown={false} name="DetailsScreen" component={DetailsScreen} />
+                    <Root.Screen name="DetailsScreen2" component={DetailsScreen2} />
+                </Root.Navigator>
             </NavigationContainer>
         </PaperProvider>
     );
