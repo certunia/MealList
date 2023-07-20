@@ -1,79 +1,63 @@
 import React from "react";
-import { Platform, StatusBar } from "react-native";
-import {
-    StackNavigator,
-    TabNavigator,
-    SwitchNavigator
-} from "react-navigation";
+import { createStackNavigator } from '@react-navigation/stack'
+import Login from "./screens/auth/Login";
+import SignUp from "./screens/auth/SignUp";
+import Home from "./screens/menu/Search";
+import ShopList from "./screens/shopList/Index";
+import EmailCheck from "./screens/auth/EmailCheck";
+import Profile from "./screens/auth/Profile";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import SignUp from "./screens/SignUp";
-import SignIn from "./screens/SignIn";
-import Home from "./screens/Home";
-import Profile from "./screens/Profile";
+const Stack = createStackNavigator();
 
-// const headerStyle = {
-//     marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
-// };
+function authScreens(signedIn) {
+    return (
+        <Stack.Navigator
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: 'transparent',
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                },
+                borderBottom: 'none',
+            }}
+        >
+            <Stack.Screen
+                name="Login"
+                component={Login}
+                options={{
+                    // When logging out, a pop animation feels intuitive
+                    // You can remove this if you want the default 'push' animation
+                    animationTypeForReplace: signedIn ? 'pop' : 'push',
+                }}/>
+            <Stack.Screen name="SignUp" component={SignUp} />
+            <Stack.Screen name="EmailCheck" component={EmailCheck} />
+            <Stack.Screen name="Profile" component={Profile} />
+        </Stack.Navigator>
+    );
+}
 
-export const SignedOut = createStackNavigator({
-    SignUp: {
-        screen: SignUp,
-        navigationOptions: {
-            title: "Sign Up",
-            // headerStyle
-        }
-    },
-    SignIn: {
-        screen: SignIn,
-        navigationOptions: {
-            title: "Sign In",
-            // headerStyle
-        }
-    }
-});
+function mainNavigation() {
+    const Tab = createBottomTabNavigator();
 
-export const SignedIn = createBottomTabNavigator(
-    {
-        Home: {
-            screen: Home,
-            navigationOptions: {
-                tabBarLabel: "Home",
-                tabBarIcon: ({ tintColor }) => (
-                    <FontAwesome name="home" size={30} color={tintColor} />
-                )
-            }
-        },
-        Profile: {
-            screen: Profile,
-            navigationOptions: {
-                tabBarLabel: "Profile",
-                tabBarIcon: ({ tintColor }) => (
-                    <FontAwesome name="user" size={30} color={tintColor} />
-                )
-            }
-        }
-    },
-    {
-        tabBarOptions: {
-            style: {
-                paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
-            }
-        }
-    }
-);
+    return (
+        <Tab.Navigator>
+            <Tab.Screen name="Home" component={Home} />
+            <Tab.Screen name="ShopList" component={ShopList} />
+        </Tab.Navigator>
+    );
+}
 
 export const createRootNavigator = (signedIn = false) => {
-    return createSwitchNavigator(
-        {
-            SignedIn: {
-                screen: SignedIn
-            },
-            SignedOut: {
-                screen: SignedOut
-            }
-        },
-        {
-            initialRouteName: signedIn ? "SignedIn" : "SignedOut"
-        }
-    );
+    return () =>
+        signedIn ? (
+                // No token found, user isn't signed in
+                authScreens(signedIn)
+            ) : (
+                // User is signed in
+                mainNavigation()
+            )
+    ;
 };

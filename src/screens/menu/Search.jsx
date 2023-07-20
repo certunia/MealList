@@ -1,12 +1,12 @@
 import { Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import * as React from "react";
+import { useNavigation } from '@react-navigation/native';
 
 export default function() {
+    const navigation = useNavigation();
     return (
         <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Button>lkjh</Button>
-            <Button onPress={() => {console.log('Pressed'); navigation.navigate('DetailsScreen2')}}>БАТОООН2!</Button>
+            <Button onPress={() => {navigation.navigate('ShopList')}}>To ShopList</Button>
         </SafeAreaView>
     );
 }
