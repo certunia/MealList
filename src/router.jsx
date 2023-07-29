@@ -9,19 +9,24 @@ import Profile from "./screens/auth/Profile";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const Stack = createStackNavigator();
+import { useTheme } from 'react-native-paper';
 
 function authScreens(signedIn) {
+    const theme = useTheme();
+
     return (
         <Stack.Navigator
             screenOptions={{
                 headerStyle: {
                     backgroundColor: 'transparent',
+                    shadowColor: 'transparent',
+                    color: theme.colors.onSurface,
+                    borderWidth: 0,
+                    elevation: 0,
+                    shadowOpacity: 0,
                 },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                    fontWeight: 'bold',
-                },
-                borderBottom: 'none',
+                headerShadowVisible: false,
+                headerTintColor: theme.colors.onSurface,
             }}
         >
             <Stack.Screen
@@ -47,17 +52,16 @@ function mainNavigation() {
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="ShopList" component={ShopList} />
         </Tab.Navigator>
-    );
+    )
 }
 
 export const createRootNavigator = (signedIn = false) => {
     return () =>
         signedIn ? (
-                // No token found, user isn't signed in
-                authScreens(signedIn)
-            ) : (
                 // User is signed in
                 mainNavigation()
+            ) : (
+                // No token found, user isn't signed in
+                authScreens(signedIn)
             )
-    ;
-};
+}

@@ -1,6 +1,6 @@
 export default {
     "colors": {
-    "primary": "rgb(76, 103, 8)",
+        "primary": "rgb(76, 103, 8)",
         "onPrimary": "rgb(255, 255, 255)",
         "primaryContainer": "rgb(205, 239, 132)",
         "onPrimaryContainer": "rgb(20, 31, 0)",
@@ -30,15 +30,15 @@ export default {
         "inverseOnSurface": "rgb(242, 241, 233)",
         "inversePrimary": "rgb(177, 210, 108)",
         "elevation": {
-        "level0": "transparent",
+            "level0": "transparent",
             "level1": "rgb(245, 245, 232)",
             "level2": "rgb(240, 240, 225)",
             "level3": "rgb(234, 236, 218)",
             "level4": "rgb(233, 234, 216)",
             "level5": "rgb(229, 231, 211)"
-    },
-    "surfaceDisabled": "rgba(27, 28, 23, 0.12)",
+        },
+        "surfaceDisabled": "rgba(27, 28, 23, 0.12)",
         "onSurfaceDisabled": "rgba(27, 28, 23, 0.38)",
         "backdrop": "rgba(47, 50, 39, 0.4)"
-}
+    }
 }

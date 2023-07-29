@@ -2,14 +2,14 @@ import * as React from 'react';
 import {
     ScrollView,
     StyleSheet,
-    View,
+    View
 } from 'react-native';
 
-import { MD3LightTheme, MD3Theme, useTheme } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-export default function ScreenWrapper({children, withScrollView = true, style, contentContainerStyle, ...rest}) {
+export default function ScreenWrapper({children, withScrollView = true, viewStyle, contentContainerStyle, ...rest}) {
     const theme = useTheme();
 
     const insets = useSafeAreaInsets();
@@ -17,12 +17,23 @@ export default function ScreenWrapper({children, withScrollView = true, style, c
     const containerStyle = [
         styles.container,
         {
-            backgroundColor: theme.colors.background,
+            backgroundColor: theme.colors.surface,
             paddingBottom: insets.bottom,
-            paddingLeft: insets.left,
-            paddingRight: insets.left,
+            paddingLeft: insets.left + 16,
+            paddingRight: insets.left + 16,
+            gap: 16
         },
     ];
+
+    contentContainerStyle = {
+        ...contentContainerStyle,
+        ...viewStyle,
+        gap: 16,
+    }
+
+    console.log('style')
+    console.log(viewStyle)
+    console.log(styles)
 
     return (
         <>
@@ -33,12 +44,12 @@ export default function ScreenWrapper({children, withScrollView = true, style, c
                     keyboardShouldPersistTaps="always"
                     alwaysBounceVertical={false}
                     showsVerticalScrollIndicator={false}
-                    style={[containerStyle, style]}
+                    style={[containerStyle, styles]}
                 >
                     {children}
                 </ScrollView>
             ) : (
-                <View style={[containerStyle, style]}>{children}</View>
+                <View style={[containerStyle, styles]}>{children}</View>
             )}
         </>
     );
