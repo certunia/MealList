@@ -18,7 +18,7 @@ export default function ScreenWrapper({children, withScrollView = true, viewStyl
         styles.container,
         {
             backgroundColor: theme.colors.surface,
-            paddingBottom: insets.bottom,
+            paddingBottom: insets.bottom + 10,
             paddingLeft: insets.left + 16,
             paddingRight: insets.left + 16,
             gap: 16
@@ -30,10 +30,6 @@ export default function ScreenWrapper({children, withScrollView = true, viewStyl
         ...viewStyle,
         gap: 16,
     }
-
-    console.log('style')
-    console.log(viewStyle)
-    console.log(styles)
 
     return (
         <>

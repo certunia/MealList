@@ -15,7 +15,7 @@ export default function() {
         <ScreenWrapper viewStyle={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
             <View></View>
 
-            <View>
+            <View style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                 <TextInput
                     mode="outlined"
                     value={email}
@@ -38,7 +38,8 @@ export default function() {
                 />
                 <Button
                     onPress={() => {console.log('Login')}}
-                    style={{ alignSelf: 'flex-end' }}
+                    style={{ alignSelf: 'flex-end', padding: 0, margin: 0 }}
+                    contentStyle={{ padding: 0, margin: 0 }}
                 >
                     Forgot password?
                 </Button>
@@ -50,14 +51,16 @@ export default function() {
                 </PrimaryButton>
             </View>
 
-            <Text style={{ alignSelf: 'center' }}>
-                Don't have an account?
+            <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', alignSelf: 'center' }}>
+                <Text>
+                    Don't have an account?
+                </Text>
                 <Button
                     onPress={() => {console.log('Login')}}
                 >
                     Signup
                 </Button>
-            </Text>
+            </View>
         </ScreenWrapper>
     );
 }
