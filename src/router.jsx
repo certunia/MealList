@@ -2,11 +2,13 @@ import React from "react";
 import { createStackNavigator } from '@react-navigation/stack'
 import Login from "./screens/auth/Login";
 import SignUp from "./screens/auth/SignUp";
-import Home from "./screens/menu/Search";
+import Home from "./screens/menu/Home";
 import ShopList from "./screens/shopList/Index";
 import EmailCheck from "./screens/auth/EmailCheck";
 import Profile from "./screens/auth/Profile";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { StyleSheet } from 'react-native';
 
 const Stack = createStackNavigator();
 import { useTheme } from 'react-native-paper';
@@ -18,12 +20,8 @@ function authScreens(signedIn) {
         <Stack.Navigator
             screenOptions={{
                 headerStyle: {
-                    backgroundColor: 'transparent',
-                    shadowColor: 'transparent',
+                    ...styles.headerStyle,
                     color: theme.colors.onSurface,
-                    borderWidth: 0,
-                    elevation: 0,
-                    shadowOpacity: 0,
                 },
                 headerShadowVisible: false,
                 headerTintColor: theme.colors.onSurface,
@@ -46,16 +44,50 @@ function authScreens(signedIn) {
 
 function mainNavigation() {
     const Tab = createBottomTabNavigator();
+    const theme = useTheme();
 
     return (
-        <Tab.Navigator>
-            <Tab.Screen name="Home" component={Home} />
-            <Tab.Screen name="ShopList" component={ShopList} />
+        <Tab.Navigator
+            screenOptions={{
+                headerStyle: {
+                    ...styles.headerStyle,
+                    color: theme.colors.onSurface,
+                },
+                tabBarStyle: {
+                    ...styles.tabBarStyle,
+                },
+                headerShadowVisible: false,
+                headerTintColor: theme.colors.onSurface,
+            }}
+        >
+            <Tab.Screen
+                name="Menu"
+                component={Home}
+                options={{
+                    headerShown: false,
+                    tabBarIcon: () => <Icon name="silverware-variant" size={24} color="#900"/>,
+                }}
+            />
+            <Tab.Screen
+                name="ShopList"
+                component={ShopList}
+                options={{
+                    tabBarIcon: () => <Icon name="cart-outline" size={24} color="#900"/>
+                }}
+            />
         </Tab.Navigator>
     )
 }
 
-export const createRootNavigator = (signedIn = false) => {
+function mainTopNavigation() {
+    // "react-native-tab-view": "^3.5.2",
+
+    return (
+        <Home/>
+    )
+}
+
+export const createRootNavigator = (signedIn = true) => {
     return () =>
         signedIn ? (
                 // User is signed in
@@ -65,3 +97,21 @@ export const createRootNavigator = (signedIn = false) => {
                 authScreens(signedIn)
             )
 }
+
+const styles = StyleSheet.create({
+    headerStyle: {
+        backgroundColor: 'transparent',
+        shadowColor: 'transparent',
+        borderWidth: 0,
+        elevation: 0,
+        shadowOpacity: 0,
+    },
+    tabBarStyle: {
+        backgroundColor: 'transparent',
+        shadowColor: 'transparent',
+        borderWidth: 0,
+        elevation: 0,
+        shadowOpacity: 0,
+        paddingBottom: 6,
+    }
+});

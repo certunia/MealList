@@ -1,5 +1,4 @@
 import { Button } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import ScreenWrapper from "../../components/ScreenWrapper";
 import { useNavigation } from '@react-navigation/native';
 
