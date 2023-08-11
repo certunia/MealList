@@ -7,6 +7,7 @@ import ShopList from "./screens/shopList/Index";
 import EmailCheck from "./screens/auth/EmailCheck";
 import Profile from "./screens/auth/Profile";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { StyleSheet } from 'react-native';
 
@@ -62,7 +63,7 @@ function mainNavigation() {
         >
             <Tab.Screen
                 name="Menu"
-                component={Home}
+                component={mainTopNavigation}
                 options={{
                     headerShown: false,
                     tabBarIcon: () => <Icon name="silverware-variant" size={24} color="#900"/>,
@@ -80,10 +81,14 @@ function mainNavigation() {
 }
 
 function mainTopNavigation() {
-    // "react-native-tab-view": "^3.5.2",
+    const Tab = createMaterialTopTabNavigator();
 
     return (
-        <Home/>
+        // <Home/>
+        <Tab.Navigator>
+            <Tab.Screen name="Home" component={Home} />
+            <Tab.Screen name="Settings" component={ShopList} />
+        </Tab.Navigator>
     )
 }
 
