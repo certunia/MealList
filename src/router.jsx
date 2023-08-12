@@ -1,15 +1,14 @@
 import React from "react";
-import { createStackNavigator } from '@react-navigation/stack'
+import { StyleSheet } from 'react-native';
 import Login from "./screens/auth/Login";
 import SignUp from "./screens/auth/SignUp";
-import Home from "./screens/menu/Home";
+import Menu from "./screens/menu/Index";
 import ShopList from "./screens/shopList/Index";
 import EmailCheck from "./screens/auth/EmailCheck";
 import Profile from "./screens/auth/Profile";
+import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { StyleSheet } from 'react-native';
 
 const Stack = createStackNavigator();
 import { useTheme } from 'react-native-paper';
@@ -63,7 +62,7 @@ function mainNavigation() {
         >
             <Tab.Screen
                 name="Menu"
-                component={mainTopNavigation}
+                component={Menu}
                 options={{
                     headerShown: false,
                     tabBarIcon: () => <Icon name="silverware-variant" size={24} color="#900"/>,
@@ -76,18 +75,6 @@ function mainNavigation() {
                     tabBarIcon: () => <Icon name="cart-outline" size={24} color="#900"/>
                 }}
             />
-        </Tab.Navigator>
-    )
-}
-
-function mainTopNavigation() {
-    const Tab = createMaterialTopTabNavigator();
-
-    return (
-        // <Home/>
-        <Tab.Navigator>
-            <Tab.Screen name="Home" component={Home} />
-            <Tab.Screen name="Settings" component={ShopList} />
         </Tab.Navigator>
     )
 }
