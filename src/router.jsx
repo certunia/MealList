@@ -55,7 +55,12 @@ function mainNavigation() {
                 },
                 tabBarStyle: {
                     ...styles.tabBarStyle,
+                    backgroundColor: theme.colors.surface,
                 },
+                tabBarLabelStyle: {
+                    fontWeight: 600,
+                },
+                tabBarActiveBackgroundColor: theme.colors.surface,
                 headerShadowVisible: false,
                 headerTintColor: theme.colors.onSurface,
             }}
@@ -65,14 +70,14 @@ function mainNavigation() {
                 component={Menu}
                 options={{
                     headerShown: false,
-                    tabBarIcon: () => <Icon name="silverware-variant" size={24} color="#900"/>,
+                    tabBarIcon: () => <Icon name="silverware-variant" size={24} color={theme.colors.onSurface}/>,
                 }}
             />
             <Tab.Screen
                 name="ShopList"
                 component={ShopList}
                 options={{
-                    tabBarIcon: () => <Icon name="cart-outline" size={24} color="#900"/>
+                    tabBarIcon: () => <Icon name="cart-outline" size={24} color={theme.colors.onSurface}/>
                 }}
             />
         </Tab.Navigator>
@@ -99,7 +104,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0,
     },
     tabBarStyle: {
-        backgroundColor: 'transparent',
         shadowColor: 'transparent',
         borderWidth: 0,
         elevation: 0,
