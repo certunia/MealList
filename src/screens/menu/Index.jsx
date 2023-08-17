@@ -24,13 +24,14 @@ export default function() {
         <>
             <View style={{
                 paddingTop: insets.top,
-                backgroundColor: theme.colors.background,
+                backgroundColor: theme.colors.elevation.level1,
             }}>
                 <Searchbar
                     placeholder="Search"
                     onChangeText={onChangeSearch}
                     value={searchQuery}
                     style={{
+                        backgroundColor: theme.colors.surfaceDisabled,
                         marginTop: 16,
                         paddingRight: 16,
                         marginBottom: 8,
