@@ -1,24 +1,24 @@
-import {Searchbar, Avatar, useTheme} from 'react-native-paper';
+import {Searchbar, useTheme} from 'react-native-paper';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Search from "./Search";
 import MyRecipes from "./MyRecipes";
+import RecipeDetailed from "./RecipeDetailed";
 import Bookmarked from "./Bookmarked";
 import React from "react";
+import {createStackNavigator} from "@react-navigation/stack";
 
-export default function() {
-    const navigation = useNavigation();
+const Stack = createStackNavigator();
+
+function SearchScreens() {
     const Tab = createMaterialTopTabNavigator();
     const insets = useSafeAreaInsets();
     const theme = useTheme();
-
     const [searchQuery, setSearchQuery] = React.useState('');
 
     const onChangeSearch = query => setSearchQuery(query);
-
 
     return (
         <>
@@ -56,5 +56,23 @@ export default function() {
                 <Tab.Screen name="Bookmarked" component={Bookmarked} />
             </Tab.Navigator>
         </>
+    )
+}
+
+export default function() {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen
+                name="SearchScreens"
+                component={SearchScreens}
+                options={{
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="RecipeDetailed"
+                component={RecipeDetailed}
+            />
+        </Stack.Navigator>
     );
 }
