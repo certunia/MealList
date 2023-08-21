@@ -7,11 +7,12 @@ import ShopList from "./screens/shopList/Index";
 import EmailCheck from "./screens/auth/EmailCheck";
 import Profile from "./screens/auth/Profile";
 import { createStackNavigator } from '@react-navigation/stack'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const Stack = createStackNavigator();
 import { useTheme } from 'react-native-paper';
+import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
+
+const Stack = createStackNavigator();
 
 function authScreens(signedIn) {
     const theme = useTheme();
@@ -43,7 +44,7 @@ function authScreens(signedIn) {
 }
 
 function mainNavigation() {
-    const Tab = createBottomTabNavigator();
+    const Tab = createMaterialBottomTabNavigator();
     const theme = useTheme();
 
     return (
