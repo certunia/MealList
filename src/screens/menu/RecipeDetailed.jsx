@@ -4,6 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import { Text } from 'react-native-paper';
 
 export default function() {
+    const theme = useTheme();
+
     return (
         <ScreenWrapper viewStyle={{ marginTop: 8 }}>
             <Text>
